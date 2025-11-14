@@ -88,16 +88,15 @@ services:
   astream:
     image: dyhlio/astream:latest
     container_name: astream
-    restart: unless-stopped
     ports:
       - "8000:8000"
-    env_file:
-      - .env
     volumes:
-      - astream:/data
-
-volumes:
-  astream:
+      - ./data:/data
+    environment:
+      - ANIMESAMA_URL=https://example.com
+      - DATABASE_TYPE=sqlite
+      - DATABASE_PATH=/data/astream.db
+    restart: unless-stopped
 ```
 
 2. **Démarrez le conteneur** :
@@ -276,3 +275,4 @@ Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de 
 <p align="center">
   Fait avec ❤️ pour la communauté anime française
 </p>
+
