@@ -65,14 +65,7 @@ async def manifest(
     b64config: str = Path(..., description="Configuration encodée en base64")
 ) -> Dict[str, Any]:
     base_manifest = get_base_manifest()
-
     config = validate_config(b64config)
-    if not config:
-        base_manifest["name"] = "| AStream"
-        base_manifest["description"] = (
-            f"CONFIGURATION OBSELETE, VEUILLEZ RECONFIGURER SUR {request.url.scheme}://{request.url.netloc}"
-        )
-        return base_manifest
 
     language_extension = config.get("language", "Tout")
     if language_extension != "Tout":
@@ -106,7 +99,7 @@ async def animesama_catalog(
         if not genre and "genre" in request.query_params:
             genre = request.query_params.get("genre")
 
-        config_dict = validate_config(b64config) or {}
+        config_dict = validate_config(b64config)
         config = ConfigModel(**config_dict)
 
         metas = await catalog_service.get_complete_catalog(
@@ -130,7 +123,7 @@ async def animesama_meta(
     id: str = Path(..., description="Identifiant d'anime (format: as:slug)"),
     b64config: str = Path(..., description="Configuration encodée en base64")
 ) -> Dict[str, Any]:
-    config_dict = validate_config(b64config) or {}
+    config_dict = validate_config(b64config)
     config = ConfigModel(**config_dict)
 
     meta = await metadata_service.get_complete_anime_meta(
@@ -152,10 +145,6 @@ async def get_anime_stream(
     logger.log("STREAM", f"Demande de flux pour: {episode_id}")
 
     config = validate_config(b64config)
-    if not config:
-        logger.warning("Configuration invalide ou manquante")
-        return {"streams": []}
-
     episode_id_formatted = episode_id.replace(".json", "")
     language_filter = config.get("language", "Tout")
     language_order = config.get("languageOrder", "VOSTFR,VF")
