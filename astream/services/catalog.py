@@ -114,6 +114,8 @@ class CatalogService:
             async def fetch_homepage():
                 logger.debug(f"Cache miss: {cache_key} - Récupération depuis Anime-Sama")
                 anime_data = await self.animesama_api.get_homepage_content()
+                if not anime_data:
+                    return None
                 return {"anime": anime_data, "total": len(anime_data)}
 
             cached_data = await CacheManager.get_or_fetch(
