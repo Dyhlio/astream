@@ -61,11 +61,10 @@ class AnimeSamaPlanning(BaseScraper):
         anime_slugs = set()
 
         try:
-            pattern = r'cartePlanningAnime\([^,]+,\s*"([^"]+)"'
+            pattern = r'anime-card[^"]*planning-card"[^>]*>[\s\S]*?href="/catalogue/([^/"]+)'
             matches = re.findall(pattern, html_content)
 
-            for url_path in matches:
-                slug = url_path.split('/')[0]
+            for slug in matches:
                 if slug:
                     anime_slugs.add(slug)
 
