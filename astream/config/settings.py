@@ -79,8 +79,13 @@ settings = AppSettings()
 # Validation de la configuration
 # ===========================
 if not settings.ANIMESAMA_URL:
-    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Consultez le README : https://github.com/Dyhlio/astream#configuration\n")
-    sys.exit(1)
+    from astream.utils.domain_fetcher import fetch_animesama_domain_sync
+    fetched = fetch_animesama_domain_sync()
+    if fetched:
+        settings.ANIMESAMA_URL = fetched
+    else:
+        sys.stderr.write("ERROR: ANIMESAMA_URL not configured. See README: https://github.com/Dyhlio/astream#configuration\n")
+        sys.exit(1)
 
 if settings.ANIMESAMA_URL.endswith('/'):
     settings.ANIMESAMA_URL = settings.ANIMESAMA_URL.rstrip('/')
