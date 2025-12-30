@@ -1,13 +1,15 @@
 services:
   astream:
-    image: dyhlio/astream:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: astream
     ports:
       - "8000:8000"
     volumes:
       - ./data:/data
     environment:
-      - ANIMESAMA_URL=https://example.com
+      - ANIMESAMA_URL=
       - DATABASE_TYPE=sqlite
       - DATABASE_PATH=/data/astream.db
     restart: unless-stopped
