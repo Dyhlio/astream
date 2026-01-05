@@ -184,7 +184,8 @@ Toutes les variables disponibles dans le fichier `.env` :
 | **Réseau** |
 | `HTTP_TIMEOUT` | Timeout HTTP général | `15` | Secondes |
 | `PROXY_URL` | Proxy HTTP/HTTPS recommandé | - | URL |
-| `ANIMESAMA_URL` | URL de base d'anime-sama (Worker Cloudflare) | | URL |
+| `ANIMESAMA_URL` | URL de base d'anime-sama OU page de statut si AUTO_FETCH=true | | URL |
+| `ANIMESAMA_AUTO_FETCH` | Si true, récupère auto le domaine depuis ANIMESAMA_URL | `false` | Booléen |
 | **Filtrage** |
 | `EXCLUDED_DOMAIN` | Domaines à exclure des streams | - | String |
 | **Personnalisation** |
