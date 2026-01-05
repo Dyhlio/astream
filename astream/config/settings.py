@@ -80,7 +80,7 @@ settings = AppSettings()
 # Validation de la configuration
 # ===========================
 if not settings.ANIMESAMA_URL:
-    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Voir README: https://github.com/Dyhlio/astream\n")
+    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Voir README: https://github.com/Dyhlio/astream#configuration\n")
     sys.exit(1)
 
 if settings.ANIMESAMA_AUTO_FETCH:
@@ -88,6 +88,7 @@ if settings.ANIMESAMA_AUTO_FETCH:
     fetched = fetch_animesama_domain_sync(settings.ANIMESAMA_URL)
     if fetched:
         settings.ANIMESAMA_URL = fetched
+        sys.stderr.write(f"INFO: Domaine récupéré automatiquement: {fetched}\n")
     else:
         sys.stderr.write("ERREUR: Impossible de récupérer le domaine depuis l'URL.\n")
         sys.exit(1)
