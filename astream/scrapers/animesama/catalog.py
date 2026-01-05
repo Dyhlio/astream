@@ -71,7 +71,7 @@ class AnimeSamaCatalog(BaseScraper):
             logger.log("DATABASE", f"Cache miss {cache_key} - Recherche live")
             all_results = []
 
-            types_to_search = ["Anime", "Film"]
+            types_to_search = ["Anime", "Film", "Autres"]
 
             for content_type in types_to_search:
                 try:
