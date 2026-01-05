@@ -3,9 +3,10 @@ from typing import Optional
 from bs4 import BeautifulSoup
 
 
-async def fetch_animesama_domain() -> Optional[str]:
-    status_url = "https://anime-sama.pw/"
-
+# ===========================
+# Fonction async fetch domaine
+# ===========================
+async def fetch_animesama_domain(status_url: str) -> Optional[str]:
     try:
         from curl_cffi.requests import AsyncSession
 
@@ -36,12 +37,15 @@ async def fetch_animesama_domain() -> Optional[str]:
         return None
 
 
-def fetch_animesama_domain_sync() -> Optional[str]:
+# ===========================
+# Fonction sync fetch domaine
+# ===========================
+def fetch_animesama_domain_sync(status_url: str) -> Optional[str]:
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
-            return loop.run_until_complete(fetch_animesama_domain())
+            return loop.run_until_complete(fetch_animesama_domain(status_url))
         finally:
             loop.close()
     except Exception:
