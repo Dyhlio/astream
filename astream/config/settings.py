@@ -124,7 +124,7 @@ def get_base_manifest() -> Dict[str, Any]:
         "id": settings.ADDON_ID,
         "name": settings.ADDON_NAME,
         "description": f"{settings.ADDON_NAME} – Addon non officiel pour accéder au contenu d'Anime-Sama",
-        "version": "2.1.3",
+        "version": "2.1.4",
         "catalogs": [
             {
                 "type": "anime",
