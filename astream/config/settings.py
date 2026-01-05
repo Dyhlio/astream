@@ -80,7 +80,7 @@ settings = AppSettings()
 # Validation de la configuration
 # ===========================
 if not settings.ANIMESAMA_URL:
-    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Voir README: https://github.com/Dyhlio/astream#configuration\n")
+    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Voir README: https://github.com/Dyhlio/astream\n")
     sys.exit(1)
 
 if settings.ANIMESAMA_AUTO_FETCH:
