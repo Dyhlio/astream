@@ -311,4 +311,4 @@ def is_valid_content_type(content_type: str) -> bool:
     if not content_type:
         return False
     content_lower = content_type.lower()
-    return "anime" in content_lower or "film" in content_lower
+    return "anime" in content_lower or "film" in content_lower or "autres" in content_lower
