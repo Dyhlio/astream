@@ -42,6 +42,7 @@ class AppSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     ANIMESAMA_URL: Optional[str] = None
+    ANIMESAMA_AUTO_FETCH: Optional[bool] = False
     ADDON_ID: Optional[str] = "community.astream"
     ADDON_NAME: Optional[str] = "AStream"
     FASTAPI_HOST: Optional[str] = "0.0.0.0"
@@ -79,12 +80,16 @@ settings = AppSettings()
 # Validation de la configuration
 # ===========================
 if not settings.ANIMESAMA_URL:
+    sys.stderr.write("ERREUR: ANIMESAMA_URL non configurée. Voir README: https://github.com/Dyhlio/astream#configuration\n")
+    sys.exit(1)
+
+if settings.ANIMESAMA_AUTO_FETCH:
     from astream.utils.domain_fetcher import fetch_animesama_domain_sync
-    fetched = fetch_animesama_domain_sync()
+    fetched = fetch_animesama_domain_sync(settings.ANIMESAMA_URL)
     if fetched:
         settings.ANIMESAMA_URL = fetched
     else:
-        sys.stderr.write("ERROR: ANIMESAMA_URL not configured. See README: https://github.com/Dyhlio/astream#configuration\n")
+        sys.stderr.write("ERREUR: Impossible de récupérer le domaine depuis l'URL.\n")
         sys.exit(1)
 
 if settings.ANIMESAMA_URL.endswith('/'):
